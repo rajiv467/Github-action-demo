@@ -60,7 +60,7 @@ data "aws_ami" "amazon_linux" {
 }
 
 
-resource "aws_key_pair" "mykey" {
+resource "aws_key_pair" "mykey2" {
     key_name = "mykeypair"
     public_key = file(var.public_key)
   
@@ -69,7 +69,7 @@ resource "aws_key_pair" "mykey" {
 resource "aws_instance" "webapp1" {
   ami             = data.aws_ami.amazon_linux.id
   instance_type   = "t2.micro"
-  key_name        = aws_key_pair.mykey.key_name
+  key_name        = aws_key_pair.mykey2.key_name
   security_groups = [aws_security_group.jenkins_sg.name]
   user_data       = "${file("install_jenkins.sh")}"
   tags = {

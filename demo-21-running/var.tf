@@ -11,10 +11,11 @@ variable "aws_secret_key" {
 }
 
 variable "public_key" {
-    default = "mykey.pub"
+
+    default = "mykey2.pub"
 }
 
 variable "private_key" {
-  default = "mykey"
+  default = "mykey2"
   
 }
