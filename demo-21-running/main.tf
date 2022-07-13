@@ -66,12 +66,12 @@ resource "aws_key_pair" "mykey2" {
   
 }
 
-resource "aws_instance" "webapp" {
+resource "aws_instance" "web" {
   ami             = "ami-06b4c3e5d2605128e"
   instance_type   = "t2.micro"
-  key_name        = aws_key_pair.mykey2.key_name
-  security_groups = [aws_security_group.jenkins_sg.name]
-  user_data       = "${file("install_jenkins.sh")}"
+  //key_name        = aws_key_pair.mykey2.key_name
+  //security_groups = [aws_security_group.jenkins_sg.name]
+  //user_data       = "${file("install_jenkins.sh")}"
   tags = {
     Name = "Jenkins"
   }
