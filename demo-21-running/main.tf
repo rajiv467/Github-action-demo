@@ -85,8 +85,8 @@ resource "aws_key_pair" "mykey2" {
 resource "aws_instance" "web" {
   ami             = data.aws_ami.ubuntu.id
   instance_type   = "t3.micro"
-  key_name        = aws_key_pair.mykey2.key_name
-  security_groups = [aws_security_group.jenkins_sg.name]
+  //key_name        = aws_key_pair.mykey2.key_name
+  //security_groups = [aws_security_group.jenkins_sg.name]
   //user_data       = "${file("install_jenkins.sh")}"
   tags = {
     Name = "Jenkins"
