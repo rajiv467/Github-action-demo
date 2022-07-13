@@ -1,4 +1,4 @@
-resource "aws_vpc" "myvpc2" {
+resource "aws_vpc" "myvpc" {
   cidr_block = "10.0.0.0/16"
   
 }
@@ -6,7 +6,7 @@ resource "aws_vpc" "myvpc2" {
 resource "aws_security_group" "jenkins_sg" {
   name        = "jenkins_sg"
   description = "Allow Jenkins Traffic"
-  vpc_id      = aws_vpc.myvpc2.id
+  vpc_id      = aws_vpc.myvpc.id
 
   ingress {
     description      = "Allow from Personal CIDR block"
