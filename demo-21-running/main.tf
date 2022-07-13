@@ -66,7 +66,7 @@ resource "aws_key_pair" "mykey" {
   
 }
 
-resource "aws_instance" "web" {
+resource "aws_instance" "webapp" {
   ami             = data.aws_ami.amazon_linux.id
   instance_type   = "t2.micro"
   key_name        = aws_key_pair.mykey.key_name
