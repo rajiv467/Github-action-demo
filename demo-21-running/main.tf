@@ -61,7 +61,7 @@ data "aws_ami" "amazon_linux" {
 
 
 resource "aws_key_pair" "mykey2" {
-    key_name = "mykeypair"
+    key_name = "mykeypair2"
     public_key = file(var.public_key)
   
 }
