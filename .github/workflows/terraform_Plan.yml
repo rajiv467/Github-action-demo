@@ -1,4 +1,9 @@
-name: 'Terraform'
+name: 'Tf deploy to aws'
+env: 
+ #production : production
+  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  ROOT_PATH : '../demo-1'
 
 on:
   push:
@@ -6,9 +11,10 @@ on:
     - "main"
   pull_request:
   
+  
 jobs:
   terraform:
-    name: 'Terraform'
+    name: 'Terraform setup'
     runs-on: ubuntu-latest
     environment: production
 
@@ -23,7 +29,7 @@ jobs:
       uses: actions/checkout@v3
 
     # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
-    - name: Setup Terraform
+    - name: Install Terraform
       uses: hashicorp/setup-terraform@v1
       with:
         cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
@@ -31,17 +37,18 @@ jobs:
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init
       run: terraform init
+      working-directory: ${{env.ROOT_PATh}}
 
     # Checks that all Terraform configuration files adhere to a canonical format
     - name: Terraform Format
       run: terraform fmt -check
+      working-directory: ${{env.ROOT_PATh}}
 
     # Generates an execution plan for Terraform
     - name: Terraform Plan
       run: terraform plan -input=false
+      working-directory: ${{env.ROOT_PATh}}
 
       # On push to "main", build or change infrastructure according to Terraform configuration files
       # Note: It is recommended to set up a required "strict" status check in your repository for "Terraform Cloud". See the documentation on "strict" required status checks for more information: https://help.github.com/en/github/administering-a-repository/types-of-required-status-checks
-    - name: Terraform Apply
-      if: github.ref == 'refs/heads/"main"' && github.event_name == 'push'
-      run: terraform apply -auto-approve -input=false
+  
