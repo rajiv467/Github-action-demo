@@ -117,10 +117,10 @@ jobs:
 
     # Checks that all Terraform configuration files adhere to a canonical format
   
-
+  
     # Generates an execution plan for Terraform
     - name: Terraform destroy
       run: terraform destroy --auto-approve
-      #working-directory: ./demo-21-running
-      working-directory: ./src/terraform
-    
+      with:
+        path: ./src/terraform
+      #working-directory: ./demo-21-running     
