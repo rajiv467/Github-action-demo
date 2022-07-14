@@ -1,0 +1,52 @@
+name: 'Tf deploy to aws'
+
+on:
+  push:
+    branches:
+    - "main"
+  pull_request:
+
+env: 
+ #production : production
+  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  #ROOT_PATH : "${{github.workspace}}/demo-21-running"
+  
+jobs:
+  terraform_destroy:
+    name: 'Terraform Destroy'
+    runs-on: ubuntu-latest
+    needs: [terraform_apply]
+    environment: stage
+
+    # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+    # Checkout the repository to the GitHub Actions runner
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
+    - name: Install Terraform
+      uses: hashicorp/setup-terraform@v1
+      with:
+        cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+
+    # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
+    - name: Terraform Init
+      run: terraform init
+      #working-directory: ./demo-21-running
+      working-directory: ./src/terraform
+
+    # Checks that all Terraform configuration files adhere to a canonical format
+  
+  
+    # Generates an execution plan for Terraform
+    - name: Terraform destroy
+      run: terraform destroy --auto-approve
+      with:
+        path: ./src/terraform
+      #working-directory: ./demo-21-running     
