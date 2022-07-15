@@ -8,12 +8,12 @@ on:
     branches:
       - 'main'
     paths:
-      - 'templates/aws_template-intermediate.json.pkr.hcl'
+      - 'templates/aws_template-basic.json.pkr,hcl'
   pull_request:
     branches-ignore:
       - 'main'
     paths:
-      - 'templates/aws_template-intermediate.json.pkr.hcl'
+      - 'templates/aws_template-basic.json.pkr.hcl'
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -32,4 +32,4 @@ jobs:
         AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }}
         AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_KEY }}
       with:
-        args: "validate /github/workspace/templates/aws_template-intermediate.json.pkr.hcl"
+        args: "validate /github/workspace/templates/aws_template-basic.json.pkr.hcl"
