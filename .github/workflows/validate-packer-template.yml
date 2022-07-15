@@ -5,13 +5,13 @@ name: Validate Packer Template
 # events but only for the master branch
 on: 
   push:
-    branches-ignore:
-      - master
+    branches:
+      - main
     paths:
       - 'templates/aws_template-intermediate.json'
   pull_request:
     branches-ignore:
-      - master
+      - main
     paths:
       - 'templates/aws_template-intermediate.json'
 
