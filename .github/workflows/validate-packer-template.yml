@@ -5,10 +5,15 @@ name: Validate Packer Template
 # events but only for the master branch
 on: 
   push:
-    branches:
-      - "main"
+    branches-ignore:
+      - master
     paths:
-      - 'templates/aws_template-basic.json.pkr.hcl'
+      - 'templates/aws_template-intermediate.json'
+  pull_request:
+    branches-ignore:
+      - master
+    paths:
+      - 'templates/aws_template-intermediate.json'
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -24,5 +29,4 @@ jobs:
       # pull official hashicorp packer container for docker hub
       uses: docker://hashicorp/packer:light
       with:
-        args: "validate /github/workspace/templates/aws_template-basic.json.pkr.hcl"
-    
+        args: "validate /github/workspace/templates/aws_template-intermediate.json"
