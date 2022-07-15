@@ -8,12 +8,12 @@ on:
     branches-ignore:
       - main
     paths:
-      - 'templates/aws_template-basic.json'
+      - 'templates/aws_template-basic.json.pkr.hcl'
   pull_request:
     branches-ignore:
       - main
     paths:
-      - 'templates/aws_template-basic.json'
+      - 'templates/aws_template-basic.json.pkr.hcl'
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -29,4 +29,4 @@ jobs:
       # pull official hashicorp packer container for docker hub
       uses: docker://hashicorp/packer:light
       with:
-        args: "validate /github/workspace/templates/aws_template-basic.json"
+        args: "validate /github/workspace/templates/aws_template-basic.json.pkr.hcl"
