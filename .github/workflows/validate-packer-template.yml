@@ -8,7 +8,7 @@ on:
     branches:
       - 'main'
     paths:
-      - 'templates/aws_template-basic.json.pkr,hcl'
+      - 'templates/aws_template-basic.json.pkr.hcl'
   pull_request:
     branches-ignore:
       - 'main'
