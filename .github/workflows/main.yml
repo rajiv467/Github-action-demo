@@ -9,5 +9,4 @@ jobs:
     steps:
     - uses: actions/checkout@main
     - uses: ./action
-      env:
-        MY_NAME: "Rajiv Gupta"
+    
