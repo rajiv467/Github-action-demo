@@ -1,0 +1,12 @@
+- name: Packer GitHub Actions
+  uses: hashicorp/packer-github-actions@v0.2.0
+  with:
+    # command to execute
+    command: 
+    # arguments for command
+    arguments:
+       run: packer fmt example.json.pkr.hcl
+       run: packer validate example.json.pkr.hcl
+       run: packer build example.json.pkr.hcl
+    # file(s) to target
+    target: ./example.json.pkr.hcl
