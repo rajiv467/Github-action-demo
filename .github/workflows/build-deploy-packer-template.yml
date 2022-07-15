@@ -7,7 +7,7 @@ name: Build & Deploy Packer Template
 on:
   pull_request:
     branches: 
-      - master
+      - main
     paths:
       - 'templates/aws_template-intermediate.json'
 
