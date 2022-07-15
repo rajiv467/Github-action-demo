@@ -7,6 +7,6 @@ RUN apt install -y packer
 RUN packer --version
 
 # Packer Build AWS EC2 Instance
-ADD example.json /example.json
-RUN packer validate /example.json
-RUN packer build example.json
+ADD example.json.pkr.hcl /example.json.pkr.hcl
+RUN packer validate /example.json.pkr.hcl
+RUN packer build example.json.pkr.hcl
