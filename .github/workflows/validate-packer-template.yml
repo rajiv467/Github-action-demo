@@ -30,3 +30,4 @@ jobs:
       uses: docker://hashicorp/packer:light
       with:
         args: "validate /github/workspace/templates/aws_template-basic.json.pkr.hcl"
+    
