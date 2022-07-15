@@ -6,12 +6,7 @@ name: Validate Packer Template
 on: 
   push:
     branches:
-      - main
-    paths:
-      - 'templates/aws_template-basic.json.pkr.hcl'
-  pull_request:
-    branches-ignore:
-      - main
+      - "main"
     paths:
       - 'templates/aws_template-basic.json.pkr.hcl'
 
