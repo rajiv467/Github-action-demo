@@ -8,6 +8,6 @@ jobs:
     runs-on: ubuntu-latest    
     steps:
     - uses: actions/checkout@main
-    - uses: ./action-a
+    - uses: ./action
       env:
         MY_NAME: "Rajiv Gupta"
