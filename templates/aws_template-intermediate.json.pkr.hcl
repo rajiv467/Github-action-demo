@@ -3,7 +3,7 @@
 
 variable "AWS_ACCESS_KEY" {
   type    = string
-  default = "{{AKIA4IKFXY6NOHQTPD6I}}"
+  default = "AKIA4IKFXY6NOHQTPD6I"
 }
 /*
 variable "AWS_GITHUB_TOKEN" {
@@ -15,7 +15,7 @@ variable "AWS_GITHUB_TOKEN" {
 
 variable "AWS_SECRET_KEY" {
   type    = string
-  default = "{{8rCIfCcRpvQKRmAuYOG94BvaM9M9yiqBvLD7FF0L}}"
+  default = "8rCIfCcRpvQKRmAuYOG94BvaM9M9yiqBvLD7FF0L"
 }
 
 variable "DESTINATION_REGIONS" {
