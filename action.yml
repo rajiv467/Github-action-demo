@@ -4,6 +4,7 @@ author: 'Shreya Singh'
 inputs:
   src:
     description: 'Put AWS access and secret access keys in example.json file'
+    required: true
 runs:
   using: 'docker'
   image: 'Dockerfile'
