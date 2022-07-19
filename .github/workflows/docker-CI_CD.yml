@@ -1,0 +1,74 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+env: 
+     IMAGE_NAME: Packer-Image
+     IMAGE_TAG: ${{ github.run.id}}  
+     ACR_NAME: azurecontainerswebsite.azurecr.io
+
+jobs:
+  build-Docker-Image:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: Azurecontainerswebsite
+    
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile --tag $IMAGE_NAME:$IMAGE_TAG
+      
+    - name: save image as TAR
+      run: docker save -o ${{ format('{0}/{1}.tar', github.workspace, env,IMAGE_NAME) }} $IAMGE_NAME:$IMAGE_TAG
+    
+    - name: Upload a Build Artifact
+      uses: actions/upload-artifact@v3.1.0
+      with:
+        # Artifact name
+        name: Packer-artifect      
+        path: ${{format('{0}/{1).tar', github.workspace, env.IMAGE_NAME) }}
+        
+  Deploy-to-Dev:
+    name: Deploy to Dev
+    runs-on: ubuntu-latest
+    environment: 
+      name: Dev
+    needs: [build-Docker-Image]
+    
+    steps:
+    - name: Download a Build Artifact
+      id: downloadImage
+      uses: actions/download-artifact@v3.0.0
+      with:
+       name: Packer-artifect
+    - name: Rehidrate Image
+      run: docker load -i ${{format('{0}/{1).tar', steps.downloadimage.output.download-path, env.IMAGE_NAME) }}
+    
+    - name: Azure Container Registry Login
+      uses: Azure/docker-login@v1
+      with:
+       username: azurecontainerwebsites
+       password: ${{ secrets.ACRPASSWORD }}
+       login-server: ${{env.ACR_NAME }}
+       
+    - name: Re-tag the Image
+      run: docker tag $IMAGE_NAME:$IAMGE_TAG $ACR_NAME/$IAMGE_NAME:$IAMGE_TAG
+       
+    - name: PUSH iamge to ACR
+      run: docker image push $ACR_NAME/$IAMGE_NAME:$IAMGE_TAG
+      
+    - name: Azure Login
+      uses: Azure/login@v1
+      with:
+        # az ad sp create-for-rbac --name "{sp-name}" --sdk-auth
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+    
+    - name: Deploy to Azure WebApp
+      uses: Azure/webapps-deploy@v2
+      with:
+        app-name: azurecontainers        
+        images:  ${{ format('{0}/{1}:{2}', env.ACR_NAME, env.IMAGE_NAME, env.IMAGE_TAG) }}  
