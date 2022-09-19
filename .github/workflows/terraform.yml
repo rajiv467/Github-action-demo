@@ -40,10 +40,23 @@ jobs:
         run: terraform plan -no-color
         continue-on-error: true
         working-directory: ./demo-1 
-      - name: Terraform Apply
-        id: Apply
-        run: terraform apply -auto-approve
-        continue-on-error: true
-        working-directory: ./demo-1         
+#       - name: Terraform Apply
+#         id: Apply
+#         run: terraform apply -auto-approve
+#         continue-on-error: true
+#         working-directory: ./demo-1   
+      
+      - name: actionshub-chef-install
+        uses: actionshub/chef-install@main
+        
+      - name: Kitchen-Terraform Github Action
+        # You may pin to the exact commit or the version.
+        # uses: osinfra-io/github-kitchen-terraform-action@cf7b74b49d7d88560962e6b8411cbba40c27fc4c
+        uses: osinfra-io/github-kitchen-terraform-action@v1.0.1
+        with:
+    # The command to run for example: help
+        kitchen-command: kitchen create tomcat  
+     
+    
           
 
