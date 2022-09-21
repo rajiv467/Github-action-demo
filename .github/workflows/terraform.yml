@@ -45,6 +45,12 @@ jobs:
         run: terraform apply -auto-approve
         continue-on-error: true
         working-directory: ./demo-1   
+        
+      - name: terraform destroy
+        uses: dflook/terraform-destroy-workspace@v1
+        with:
+          path: terraform
+          workspace: ${{ github.head_ref }}   
       
 #       - name: actionshub-chef-install
 #         uses: actionshub/chef-install@main
